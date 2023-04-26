@@ -3,12 +3,13 @@
  *    1. Animate images
  */
 
-import "./Login.scss";
+import "./signup.scss";
 
 // Importing the image
 import Logo from "../assets/logo.png";
 import google from "../assets/google.png";
 import { useEffect, useState } from "react";
+// const { useEffect, useState } = require("react");
 
 const IMAGES = [
   "https://e0.pxfuel.com/wallpapers/238/812/desktop-wallpaper-white-lilies-and-background-stargazer-lily.jpg",
@@ -19,10 +20,10 @@ const IMAGES = [
   "https://getwallpapers.com/wallpaper/full/e/3/6/1413450-cherry-blossom-desktop-background-1920x1080-meizu.jpg",
 ];
 
-export default function Login() {
-  const [email, setEmail] = useState("hummingbird@florence.com");
-  const [password, setPassword] = useState("Hello@123");
-  const [isChecked, setIsChecked] = useState(false);
+export default function Signup() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
   const [error, setError] = useState("");
   const [backgroundImg, setBackgroundImg] = useState(IMAGES[0]);
 
@@ -35,9 +36,8 @@ export default function Login() {
       clearInterval(id);
     };
   }, []);
-
   return (
-    <div id="login-component">
+    <div id="signup-component">
       <div id="login">
         <div id="title">
           <div id="logo">
@@ -47,19 +47,9 @@ export default function Login() {
         </div>
         <div id="body">
           <div id="upper">
-            <div id="welcome">Welcome back,</div>
-            <div id="continue">Continue with Google or enter your details.</div>
-            <div id="google">
-              <div id="googleButton">
-                {/* <div id="logogoogle"> */}
-                <img src={google} alt="" />
-                {/* </div> */}
-                <div id="loginWIthGoogle">Log in with Google</div>
-              </div>
-            </div>
+            <div id="welcome">Welcome to, Florence</div>
+            <div id="continue">For happy shopping please signup.</div>
             <div id="or">
-              <div className="line"></div>
-              <div id="text">or</div>
               <div className="line"></div>
             </div>
           </div>
@@ -67,12 +57,22 @@ export default function Login() {
             <div className="input">
               <input
                 type="text"
-                value={email}
-                placeholder="Email address"
+                value={name}
+                placeholder="name"
                 onChange={(e) => {
-                  // e.target = document.getElementById(...)
-                  const newEmail = e.target.value;
-                  setEmail(newEmail);
+                  const newName = e.target.value;
+                  setName(newName);
+                }}
+              />
+            </div>
+            <div className="input">
+              <input
+                type="email"
+                value={email}
+                placeholder="email"
+                onChange={(e) => {
+                  const newemail = e.target.value;
+                  setEmail(newemail);
                 }}
               />
             </div>
@@ -80,7 +80,7 @@ export default function Login() {
               <input
                 type="password"
                 value={password}
-                placeholder="Password"
+                placeholder="password"
                 onChange={(e) => {
                   const newPassword = e.target.value;
                   setPassword(newPassword);
@@ -89,53 +89,36 @@ export default function Login() {
             </div>
             <div id="error">{error}</div>
             <div id="remember">
-              <div
-                id="rem"
-                onClick={() => {
-                  setIsChecked(!isChecked);
-                }}
-              >
-                <input
-                  type="checkbox"
-                  checked={isChecked}
-                  onChange={() => {}}
-                />
-                <div id="message">Remember for 30 days</div>
+              <div id="rem">
+                <div
+                  id="login2"
+                  onClick={async () => {
+                    const res = await fetch("http://localhost:4000/signup", {
+                      method: "POST",
+                      headers: { "content-type": "application/json" },
+                      body: JSON.stringify({
+                        email: email,
+                        password: password,
+                        name: name,
+                      }),
+                    });
+                    const body = await res.json();
+                    if (res.status === 200) {
+                      localStorage.setItem("token", body["token"]);
+                      console.log("login successful");
+                    } else {
+                      setError(body["message"]);
+                    }
+                  }}
+                >
+                  <div id="loginText">Signup</div>
+                </div>
               </div>
-              <div id="forgot">Forgot password?</div>
             </div>
-            <div
-              id="login2"
-              onClick={async () => {
-                setError("");
-                const res = await fetch("http://localhost:4000/login", {
-                  method: "POST",
-                  headers: {
-                    "content-type": "application/json",
-                  },
-                  body: JSON.stringify({
-                    email: email,
-                    password: password,
-                  }),
-                });
-                const body = await res.json();
-                if (res.status === 200) {
-                  localStorage.setItem("token", body["token"]);
-                } else {
-                  /* Choice 1 */
-                  // setError(body["message"]);
 
-                  /* Choice 2 */
-                  const errorMsg = body["message"];
-                  setError(errorMsg);
-                }
-              }}
-            >
-              <div id="loginText">Log in</div>
-            </div>
             <div id="noAcc">
-              <div id="account">Dont have an account?</div>
-              <div id="signup">Sign up for free</div>
+              <div id="account"> have an account?</div>
+              <div id="signup">Login</div>
             </div>
           </div>
         </div>
