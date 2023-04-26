@@ -1,11 +1,41 @@
+/**
+ * TODO:
+ *    1. Animate images
+ */
+
 import "./Login.scss";
 
 // Importing the image
-import Background from "../assets/background.jpg";
 import Logo from "../assets/logo.png";
 import google from "../assets/google.png";
+import { useEffect, useState } from "react";
+
+const IMAGES = [
+  "https://e0.pxfuel.com/wallpapers/238/812/desktop-wallpaper-white-lilies-and-background-stargazer-lily.jpg",
+  "https://e0.pxfuel.com/wallpapers/383/835/desktop-wallpaper-white-easter-lilies-widescreen-flowers-in-2019-lily-stargazer-lily-thumbnail.jpg",
+  "https://cdn.shopify.com/s/files/1/2690/0106/products/DSC03418_1b5b6685-17f8-476c-a3fd-a197728d6859_600x.jpg?v=1638614981",
+  "https://wallpaperboat.com/wp-content/uploads/2020/04/aesthetic-rose-wallpaper-1920x1080-1.jpg",
+  "https://wallpaperset.com/w/full/0/3/a/479893.jpg",
+  "https://getwallpapers.com/wallpaper/full/e/3/6/1413450-cherry-blossom-desktop-background-1920x1080-meizu.jpg",
+];
 
 export default function Login() {
+  const [email, setEmail] = useState("hummingbird@florence.com");
+  const [password, setPassword] = useState("Hello@123");
+  const [isChecked, setIsChecked] = useState(false);
+  const [error, setError] = useState("");
+  const [backgroundImg, setBackgroundImg] = useState(IMAGES[0]);
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      const randomImage = IMAGES[Math.floor(Math.random() * IMAGES.length)];
+      setBackgroundImg(randomImage);
+    }, 4000);
+    return () => {
+      clearInterval(id);
+    };
+  }, []);
+
   return (
     <div id="main">
       <div id="login">
@@ -35,20 +65,72 @@ export default function Login() {
           </div>
           <div id="lower">
             <div className="input">
-              <input type="text" placeholder="Email address" />
+              <input
+                type="text"
+                value={email}
+                placeholder="Email address"
+                onChange={(e) => {
+                  // e.target = document.getElementById(...)
+                  const newEmail = e.target.value;
+                  setEmail(newEmail);
+                }}
+              />
             </div>
             <div className="input">
-              <input type="password" placeholder="Password" />
+              <input
+                type="password"
+                value={password}
+                placeholder="Password"
+                onChange={(e) => {
+                  const newPassword = e.target.value;
+                  setPassword(newPassword);
+                }}
+              />
             </div>
+            <div id="error">{error}</div>
             <div id="remember">
-              <div id="rem">
-                <input type="checkbox" />
+              <div
+                id="rem"
+                onClick={() => {
+                  setIsChecked(!isChecked);
+                }}
+              >
+                <input
+                  type="checkbox"
+                  checked={isChecked}
+                  onChange={() => {}}
+                />
                 <div id="message">Remember for 30 days</div>
               </div>
               <div id="forgot">Forgot password?</div>
             </div>
-            <div id="login2">
-              <div id="loginButton"></div>
+            <div
+              id="login2"
+              onClick={async () => {
+                setError("");
+                const res = await fetch("http://localhost:4000/login", {
+                  method: "POST",
+                  headers: {
+                    "content-type": "application/json",
+                  },
+                  body: JSON.stringify({
+                    email: email,
+                    password: password,
+                  }),
+                });
+                const body = await res.json();
+                if (res.status === 200) {
+                  localStorage.setItem("token", body["token"]);
+                } else {
+                  /* Choice 1 */
+                  // setError(body["message"]);
+
+                  /* Choice 2 */
+                  const errorMsg = body["message"];
+                  setError(errorMsg);
+                }
+              }}
+            >
               <div id="loginText">Log in</div>
             </div>
             <div id="noAcc">
@@ -60,7 +142,7 @@ export default function Login() {
       </div>
       <div id="img">
         {/* Instead of writing: <img src="background.jpg" /> cz react don't know about its location in our project */}
-        <img src={Background} />
+        <img src={backgroundImg} />
       </div>
     </div>
   );
