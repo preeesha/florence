@@ -117,7 +117,7 @@ export default function Signup() {
             </div>
 
             <div id="noAcc">
-              <div id="account"> have an account?</div>
+              <div id="account">Already have an account?</div>
               <div id="signup">Login</div>
             </div>
           </div>
