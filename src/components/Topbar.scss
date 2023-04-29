@@ -1,0 +1,43 @@
+#title {
+  display: flex;
+  align-items: center;
+  padding: 0 2rem;
+  gap: 12rem;
+
+  height: 6rem;
+  background: #fff;
+
+  #app {
+    display: flex;
+    align-items: center;
+    #logo {
+      display: inline-flex;
+      img {
+        width: 3rem;
+        height: 3rem;
+        margin-right: 12px;
+      }
+    }
+    #florence {
+      font-family: "domine";
+      font-weight: 700;
+      font-size: 1.6rem;
+      letter-spacing: -0.5px;
+    }
+  }
+  #catagory {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    font-weight: 500;
+    color: #7e7e7e;
+    #selectCatory {
+      color: black;
+    }
+  }
+}
+#divider {
+  height: 1px;
+  width: 100%;
+  background: #eee;
+}

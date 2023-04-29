@@ -3,6 +3,7 @@ import Logo from "../assets/logo.png";
 
 import { useEffect, useState } from "react";
 import { SAMPLE_PRODUCT } from "../lib/misc";
+import Topbar from "../components/Topbar";
 
 function ProductInfo(props) {
   return (
@@ -72,22 +73,7 @@ export default function Product() {
   return (
     <div id="product-component">
       {/* {product["title"]} = ₹{product["price"]} */}
-      <div id="title">
-        <div id="app">
-          <div id="logo">
-            <img src={Logo} alt="" />
-          </div>
-          <div id="florence">Florence</div>
-        </div>
-        <div id="catagory">
-          <div id="selectCatory">Birthday</div>
-          <div className="category">Love & Romance</div>
-          <div className="category">Anniversary</div>
-          <div className="category">Celebration</div>
-          <div className="category">Sympathy & Funeral</div>
-        </div>
-      </div>
-      <div id="divider"></div>
+      <Topbar />
       <div id="body">
         <div id="left">
           <div id="slider">
