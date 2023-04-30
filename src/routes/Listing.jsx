@@ -3,10 +3,18 @@ import "./Listing.scss";
 import { useEffect, useState } from "react";
 import MultiRangeSlider from "../components/multiRangeSlider";
 import Topbar from "../components/Topbar";
+import { useNavigate } from "react-router-dom";
 
 function ProductCard(props) {
+  const navigate = useNavigate();
   return (
-    <div className="product">
+    <div
+      className="product"
+      onClick={() => {
+        // navigate("/product/" + props.product._id);
+        navigate(`/product/${props.product._id}`);
+      }}
+    >
       <div className="like">
         <i class="fi fi-rr-heart"></i>
       </div>

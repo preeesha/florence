@@ -9,6 +9,7 @@ import "./signup.scss";
 import Logo from "../assets/logo.png";
 import google from "../assets/google.png";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 // const { useEffect, useState } = require("react");
 
 const IMAGES = [
@@ -26,6 +27,7 @@ export default function Signup() {
   const [name, setName] = useState("");
   const [error, setError] = useState("");
   const [backgroundImg, setBackgroundImg] = useState(IMAGES[0]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const id = setInterval(() => {
@@ -39,7 +41,7 @@ export default function Signup() {
   return (
     <div id="signup-component">
       <div id="login">
-        <div id="title">
+        <div id="header">
           <div id="logo">
             <img src={Logo} alt="this is our logo" />
           </div>
@@ -106,6 +108,7 @@ export default function Signup() {
                     if (res.status === 200) {
                       localStorage.setItem("token", body["token"]);
                       console.log("login successful");
+                      navigate("/listing");
                     } else {
                       setError(body["message"]);
                     }
@@ -118,7 +121,14 @@ export default function Signup() {
 
             <div id="noAcc">
               <div id="account">Already have an account?</div>
-              <div id="signup">Login</div>
+              <div
+                id="signup"
+                onClick={() => {
+                  navigate("/login");
+                }}
+              >
+                Login
+              </div>
             </div>
           </div>
         </div>

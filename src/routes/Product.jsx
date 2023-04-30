@@ -1,8 +1,7 @@
 import "./Product.scss";
-import Logo from "../assets/logo.png";
 
 import { useEffect, useState } from "react";
-import { SAMPLE_PRODUCT } from "../lib/misc";
+import { useParams } from "react-router-dom";
 import Topbar from "../components/Topbar";
 
 function ProductInfo(props) {
@@ -26,19 +25,22 @@ function ProductInfo(props) {
 }
 
 export default function Product() {
+  const params = useParams();
   const [product, setProduct] = useState(null);
   const [url, setUrl] = useState();
 
   useEffect(() => {
-    fetch("http://localhost:4000/getTrendingProducts", {
-      method: "GET",
+    fetch("http://localhost:4000/getProductById", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({
+        id: params.productId,
+      }),
     }).then(async (res) => {
       const body = await res.json();
-      const trendingProducts = body["data"];
-      const selectedProduct =
-        trendingProducts[Math.floor(Math.random() * trendingProducts.length)];
-      selectedProduct.images = selectedProduct.images.slice(0, 4);
-      console.log(selectedProduct);
+      const selectedProduct = body["data"];
       setProduct(selectedProduct);
       setUrl(selectedProduct.images[0]);
     });

@@ -1,9 +1,5 @@
-/**
- * TODO:
- *    1. Animate images
- */
-
 import "./Login.scss";
+import { useNavigate } from "react-router-dom";
 
 // Importing the image
 import Logo from "../assets/logo.png";
@@ -25,6 +21,7 @@ export default function Login() {
   const [isChecked, setIsChecked] = useState(false);
   const [error, setError] = useState("");
   const [backgroundImg, setBackgroundImg] = useState(IMAGES[0]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const id = setInterval(() => {
@@ -39,7 +36,7 @@ export default function Login() {
   return (
     <div id="login-component">
       <div id="login">
-        <div id="title">
+        <div id="header">
           <div id="logo">
             <img src={Logo} alt="this is our logo" />
           </div>
@@ -121,6 +118,7 @@ export default function Login() {
                 const body = await res.json();
                 if (res.status === 200) {
                   localStorage.setItem("token", body["token"]);
+                  navigate("/listing");
                 } else {
                   /* Choice 1 */
                   // setError(body["message"]);
@@ -135,7 +133,14 @@ export default function Login() {
             </div>
             <div id="noAcc">
               <div id="account">Dont have an account?</div>
-              <div id="signup">Sign up for free</div>
+              <div
+                id="signup"
+                onClick={() => {
+                  navigate("/signup");
+                }}
+              >
+                Sign up for free
+              </div>
             </div>
           </div>
         </div>
