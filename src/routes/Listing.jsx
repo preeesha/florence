@@ -3,7 +3,13 @@ import "./Listing.scss";
 import { useEffect, useState } from "react";
 import MultiRangeSlider from "../components/multiRangeSlider";
 import Topbar from "../components/Topbar";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import {
+  networkRequest,
+  toTitleCase,
+  useNetworkRequest,
+  useNetworkRequestOnMount,
+} from "../lib/helpers";
 
 function ProductCard(props) {
   const navigate = useNavigate();
@@ -16,7 +22,7 @@ function ProductCard(props) {
       }}
     >
       <div className="like">
-        <i class="fi fi-rr-heart"></i>
+        <i className="fi fi-rr-heart"></i>
       </div>
       <div className="image">
         <img src={props.product.images[0]} />
@@ -33,17 +39,22 @@ function ProductCard(props) {
 }
 
 export default function Listing() {
+  const params = useParams();
   const [products, setProducts] = useState();
-  useEffect(() => {
-    fetch("http://localhost:4000/getTrendingProducts", {
-      method: "GET",
-    }).then(async (res) => {
+
+  const isTrendingSection = params.category.toLowerCase() === "trending";
+
+  useNetworkRequest(
+    isTrendingSection ? "GET" : "POST",
+    isTrendingSection ? "/getTrendingProducts" : "/getProductsByCategory",
+    isTrendingSection ? undefined : { category: params.category.toLowerCase() },
+    async (res) => {
       const body = await res.json();
-      const trendingProducts = body["data"];
-      console.log(trendingProducts);
-      setProducts(trendingProducts);
-    });
-  }, []);
+      const allProducts = body["data"];
+      setProducts(allProducts);
+    },
+    [params]
+  );
 
   if (!products) return <div>Loading</div>;
   return (
@@ -139,7 +150,7 @@ export default function Listing() {
           </div>
         </div>
         <div id="right">
-          <div className="category">Celebration</div>
+          <div className="category">{toTitleCase(params.category)}</div>
           <div className="allProducts">
             {products.map((product) => {
               return <ProductCard product={product} />;

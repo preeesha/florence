@@ -1,38 +1,66 @@
 #title {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   padding: 0 2rem;
-  gap: 8rem;
 
-  height: 6rem;
-  background: #fff;
-
-  #app {
+  .leftTitle {
     display: flex;
     align-items: center;
-    #logo {
-      display: inline-flex;
-      img {
-        width: 3rem;
-        height: 3rem;
-        margin-right: 12px;
+    gap: 8rem;
+
+    height: 6rem;
+    background: #fff;
+
+    #app {
+      display: flex;
+      align-items: center;
+      #logo {
+        display: inline-flex;
+        img {
+          width: 3rem;
+          height: 3rem;
+          margin-right: 12px;
+        }
+      }
+      #florence {
+        font-family: "domine";
+        font-weight: 700;
+        font-size: 1.6rem;
+        letter-spacing: -0.5px;
       }
     }
-    #florence {
-      font-family: "domine";
-      font-weight: 700;
-      font-size: 1.6rem;
-      letter-spacing: -0.5px;
+    #catagory {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      font-weight: 500;
+      color: #7e7e7e;
+
+      // #selectCatory {
+      //   color: black;
+      // }
+
+      .category {
+        cursor: pointer;
+
+        &.active {
+          color: black;
+          font-weight: 600;
+        }
+      }
     }
   }
-  #catagory {
+  .rightTitle {
     display: flex;
     align-items: center;
-    gap: 1.5rem;
-    font-weight: 500;
-    color: #7e7e7e;
-    #selectCatory {
-      color: black;
+    justify-content: center;
+
+    .cart {
+      i {
+        font-size: 20px;
+        cursor: pointer;
+      }
     }
   }
 }

@@ -1,7 +1,7 @@
 import "./Product.scss";
 
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Topbar from "../components/Topbar";
 
 function ProductInfo(props) {
@@ -29,6 +29,7 @@ export default function Product() {
   const [product, setProduct] = useState(null);
   const [url, setUrl] = useState();
 
+  const navigate = useNavigate();
   useEffect(() => {
     fetch("http://localhost:4000/getProductById", {
       method: "POST",
