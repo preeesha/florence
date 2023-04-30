@@ -1,32 +1,84 @@
 #Listing-component {
   #body {
-    height: calc(100vh - 6rem - 1px);
-    overflow-y: auto;
     display: flex;
+    position: relative;
 
     #left {
-      width: 25vw;
-      padding-top: 2rem;
+      width: 20rem;
       padding-left: 2.5rem;
+      padding-right: 2.5rem;
+
+      position: sticky;
+      top: 0;
+
+      height: calc(100vh - 6rem - 1px);
+      overflow-y: auto;
+
+      .section {
+        padding: 1.5rem 0;
+        border-bottom: 1px solid #eee;
+
+        .heading {
+          font-size: 14px;
+          font-weight: 600;
+          margin-bottom: 12px;
+          opacity: 0.4;
+        }
+
+        .content {
+          .option,
+          .checkbox {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+
+            span {
+              font-size: 15px;
+            }
+          }
+
+          .option {
+            justify-content: space-between;
+            padding: 5px 0;
+
+            i {
+              font-size: 11px;
+            }
+
+            &.active {
+              * {
+                font-weight: 500;
+              }
+            }
+          }
+
+          .checkbox {
+            gap: 6px;
+            padding: 4px 0;
+          }
+        }
+      }
     }
 
     #right {
       padding: 0 5%;
+      width: calc(100vw - 20rem);
 
-      #category {
+      overflow-y: auto;
+      height: calc(100vh - 6rem - 1px);
+
+      .category {
         font-size: 22px;
         font-weight: 600;
         padding: 2rem 0;
+        background: #fff;
+
         position: sticky;
         top: 0;
-        // position: fixed;
-        // // top:0;
-        // width: 100%;
         z-index: 100;
-        background: #fff;
       }
 
-      #allProducts {
+      .allProducts {
         gap: 1.5rem;
         display: flex;
         flex-wrap: wrap;
@@ -37,6 +89,11 @@
           // height: 24rem;
           width: 20rem;
           position: relative;
+          cursor: pointer;
+
+          &:hover {
+            background: #eee;
+          }
 
           .like {
             position: absolute;

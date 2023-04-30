@@ -1,5 +1,9 @@
 .container {
   height: 1.5rem;
+
+  * {
+    transition-duration: 0ms !important;
+  }
 }
 
 .slider {

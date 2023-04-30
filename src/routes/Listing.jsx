@@ -43,46 +43,96 @@ export default function Listing() {
       <Topbar />
       <div id="body">
         <div id="left">
-          <div id="sort">
-            Sort by
-            <div className="sorter">Title</div>
-            <div className="sorter">Stars Given</div>
-            <div className="sorter">Price</div>
-            <div className="sorter">Delivery Charge</div>
-            <div className="sorted">Discount</div>
+          <div className="section">
+            <div className="heading">Sort by</div>
+            <div className="content">
+              <div className="option active">
+                <span>Title</span>
+                <i className="fi fi-sr-arrow-up"></i>
+              </div>
+              <div className="option">
+                <span>Stars Given</span>
+                {/* <i className="fi fi-sr-arrow-up"></i> */}
+              </div>
+              <div className="option">
+                <span>Price</span>
+                {/* <i className="fi fi-sr-arrow-up"></i> */}
+              </div>
+              <div className="option">
+                <span>Delivery Charge</span>
+                {/* <i className="fi fi-sr-arrow-up"></i> */}
+              </div>
+              <div className="option">
+                <span>Discount</span>
+                {/* <i className="fi fi-sr-arrow-up"></i> */}
+              </div>
+            </div>
           </div>
-          <div id="ocassions">
-            <div id="name">ocassion</div>
-            <div className="ocassion">Birthday</div>
-            <div className="ocassion">anniversary</div>
-            <div className="ocassion">Love & Romance</div>
-            <div className="ocassion">Celebration</div>
-            <div className="ocassion">Furenal</div>
+          <div className="section">
+            <div className="heading">Occasion</div>
+            <div className="content">
+              <div className="checkbox">
+                <input type="checkbox" />
+                <span>Birthday</span>
+              </div>
+              <div className="checkbox">
+                <input type="checkbox" />
+                <span>Anniversary</span>
+              </div>
+              <div className="checkbox">
+                <input type="checkbox" />
+                <span>Love & Romance</span>
+              </div>
+              <div className="checkbox">
+                <input type="checkbox" />
+                <span>Celebration</span>
+              </div>
+              <div className="checkbox">
+                <input type="checkbox" />
+                <span>Furenal</span>
+              </div>
+            </div>
           </div>
-          <div id="price">
-            <div className="name">price</div>
-            <MultiRangeSlider
-              min={1}
-              max={20000}
-              onChange={(value) => {
-                console.log(value);
-              }}
-            />
+          <div className="section">
+            <div className="heading">Price</div>
+            <div className="content">
+              <MultiRangeSlider
+                min={1}
+                max={20000}
+                onChange={(value) => {
+                  console.log(value);
+                }}
+              />
+            </div>
           </div>
-          <div id="deliveryCharge">
-            <div className="name">deliveryCharge</div>
-            <div className="slider"></div>
+          <div className="section">
+            <div className="heading">Discount</div>
+            <div className="content">
+              <MultiRangeSlider
+                min={0}
+                max={50}
+                onChange={(value) => {
+                  console.log(value);
+                }}
+              />
+            </div>
+          </div>
+          <div className="section">
+            <div className="heading">Delivery charges</div>
+            <div className="content">
+              <MultiRangeSlider
+                min={30}
+                max={50}
+                onChange={(value) => {
+                  console.log(value);
+                }}
+              />
+            </div>
           </div>
         </div>
         <div id="right">
-          <div id="category">Celebration</div>
-          <div id="allProducts">
-            {products.map((product) => {
-              return <ProductCard product={product} />;
-            })}
-          </div>
-          <div id="category">Birthday</div>
-          <div id="allProducts">
+          <div className="category">Celebration</div>
+          <div className="allProducts">
             {products.map((product) => {
               return <ProductCard product={product} />;
             })}

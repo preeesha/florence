@@ -16,3 +16,11 @@ body {
 i {
   margin-top: 1px;
 }
+
+input {
+  accent-color: #000;
+
+  &[type="checkbox"] {
+    cursor: pointer;
+  }
+}

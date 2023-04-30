@@ -1,4 +1,4 @@
-import "./multiRangeSlider.css";
+import "./multiRangeSlider.scss";
 
 import PropTypes from "prop-types";
 import React, { useCallback, useEffect, useRef, useState } from "react";
