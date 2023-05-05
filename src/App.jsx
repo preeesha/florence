@@ -7,6 +7,7 @@ import Product from "./routes/Product";
 import Signup from "./routes/signup";
 import Listing from "./routes/Listing";
 import Cart from "./routes/Cart";
+import Profile from "./routes/profile";
 
 export default function App() {
   // return <Login />;
@@ -16,12 +17,14 @@ export default function App() {
   return (
     <div className="App">
       <Routes>
+        <Route path="/" element={<Navigate to="/login" />}></Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/signup" element={<Signup />}></Route>
         <Route path="/product/:productId" element={<Product />}></Route>
         <Route path="/listing" element={<Navigate to="/listing/trending" />} />
         <Route path="/listing/:category" element={<Listing />}></Route>
         <Route path="/cart" element={<Cart />}></Route>
+        <Route path="/profile" element={<Profile />}></Route>
       </Routes>
     </div>
   );
